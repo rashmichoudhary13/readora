@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Button } from "react-bootstrap";
 import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from "../context/SupabaseProvider";
+import { supabase } from "../context/Supabase";
 
 const MyNavbar = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const MyNavbar = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setIsLoggedIn(false);
-    navigate("/register");
+    navigate("/login");
   };
 
   return (

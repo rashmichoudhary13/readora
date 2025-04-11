@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { supabase } from "../context/SupabaseProvider";
+import { supabase } from "../context/Supabase";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,6 +27,11 @@ const RegisterPage = () => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          name,
+        }
+      }
     });
 
     if (error) {
@@ -53,6 +59,16 @@ const RegisterPage = () => {
       </center>
 
       <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Name:</Form.Label>
+          <Form.Control
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            type="text"
+            placeholder="Enter your name"
+          />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address:</Form.Label>
           <Form.Control

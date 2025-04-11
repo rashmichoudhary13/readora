@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { supabase } from "../context/SupabaseProvider";
+import { supabase } from "../context/Supabase";
 
 const ImageContainer = styled.div`
   position: relative;

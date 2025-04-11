@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { supabase } from "../context/SupabaseProvider";
+import {useSupabase} from "../context/Supabase";
 import BookCard from "../components/Card"; // Assuming this shows book info
 import "../style/Home.scss";
 
 const HomePage = () => {
+  const supabase = useSupabase();
+  
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      const { data, error } = await supabase.from("books").select("*");
-
-      if (error) {
-        console.error("Error fetching books:", error.message);
-      } else {
-        setBooks(data);
-      }
-    };
-
-    fetchBooks();
+    supabase.listAllBooks().then((data) => setBooks(data));
   }, []);
 
   return (
