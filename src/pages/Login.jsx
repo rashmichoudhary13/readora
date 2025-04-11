@@ -1,13 +1,13 @@
-import React, { useState, useEffect }  from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import image3 from "./image3.jpg";
 import styled from "styled-components";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useFirebase } from "../context/Firebase";
+import { supabase } from "../context/SupabaseProvider";
 
 const ImageContainer = styled.div`
   position: relative;
@@ -40,104 +40,129 @@ const Text = styled.h3`
   text-align: center;
 `;
 
-console.log(image3);
-
 const LoginPage = () => {
-  const firebase = useFirebase();
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (firebase.isLoggedIn) {
-      //navigate to home page
-      navigate("/");
-    }
-  }, [firebase, navigate]);
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) {
+        navigate("/");
+      }
+    };
+    checkUser();
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); //to stop the page from refreshing
-    console.log("Loging up the user");
-    const result = await firebase.loginUserWithEmailAndPassword(
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
-      password
-    );
-    console.log("Login Successful", result);
+      password,
+    });
+
+    if (error) {
+      alert("Login Failed: " + error.message);
+    } else {
+      console.log("Login Success:", data);
+      navigate("/");
+    }
   };
 
-  console.log(firebase);
+  const handleGoogleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    if (error) {
+      console.log("Google Sign-in error:", error.message);
+    }
+  };
+
   return (
     <div
       className="container mt-4"
       style={{
         backgroundColor: "#FFF9F9",
         borderRadius: "20px",
+        padding: "20px",
       }}
     >
-
-      <Container>
+      <Container fluid>
         <Row>
-          <Col>
+          <Col md={6}>
             <ImageContainer>
-              <ImageBackground src={image3} alt="background" style={{borderRadius:"30px"}} />
+              <ImageBackground
+                src={image3}
+                alt="background"
+                style={{ borderRadius: "30px" }}
+              />
               <TextWrapper>
                 <Text>
-                  Welcome Back<br></br>
-                  {/* <Button href="/login" style={{
-                                    width:"200px",
-                                    height:"40px", 
-                                    borderRadius:"15px"
-                                }} >Login</Button> */}
-                  <br></br>
+                  Welcome Back
+                  <br />
                   <h2>Signin to continue access</h2>
                 </Text>
-                <br></br>
               </TextWrapper>
             </ImageContainer>
           </Col>
 
-          <Col>
-            <div className="container m-5">
-                <center>
-                    <h1>Login Here</h1>
-                </center>
-                <br></br>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address: </Form.Label>
-                    <Form.Control
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        type="email"
-                        placeholder="Enter email"
-                    />
-                    </Form.Group>
+          <Col
+            md={6}
+            className="d-flex align-items-center justify-content-center"
+          >
+            <div style={{ width: "100%", maxWidth: "400px" }}>
+              <h2 className="text-center mb-4">Login Here</h2>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password: </Form.Label>
-                    <Form.Control
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        type="password"
-                        placeholder="Password"
-                    />
-                    </Form.Group>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Form.Group>
 
-                    <br></br>
-                    <center>
-                        <Button variant="primary" type="submit" style={{
-                                    width:"200px",
-                                    height:"40px", 
-                                    borderRadius:"15px"
-                                }}>Login</Button>
-                    </center>
-                </Form>
+                <Form.Group className="mb-4" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
 
-                <center>
-                    <h1 className="mt-5 mb-5">OR</h1>
-                    <Button onClick={firebase.signinWithGoogle} variant="info">Sign In with Google</Button>
-                </center>
+                <div className="text-center mb-4">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    style={{
+                      width: "100%",
+                      height: "40px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    Login
+                  </Button>
+                </div>
+              </Form>
+
+              <div className="text-center my-3">
+                <strong>OR</strong>
+              </div>
+
+              <div className="text-center">
+                <Button
+                  variant="info"
+                  style={{ width: "100%", borderRadius: "10px" }}
+                  onClick={handleGoogleSignIn}
+                >
+                  Sign In with Google
+                </Button>
+              </div>
             </div>
           </Col>
         </Row>
