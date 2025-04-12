@@ -2,16 +2,14 @@ import React, {useState, useEffect} from "react";
 import Card from "react-bootstrap/Card";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
-import {useSupabase} from "../context/Supabase";
 
 const BookCard = (props) => {
 
     const [url, setURL] = useState(null);
-    const supabase = useSupabase();
     const navigate = useNavigate();
 
     useEffect( ()=>{
-        supabase.getImageURL(props.imgURL).then(url=>setURL(url));
+        setURL(props.imgURL)
     } ,[]);
     console.log(props);
     

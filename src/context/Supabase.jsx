@@ -72,6 +72,8 @@ export const SupabaseProvider = (props) => {
       .from("readhive")
       .getPublicUrl(`image/${coverpath}`);
 
+    console.log("Image Url: ", imageURL.publicUrl)
+
     const { data: pURL } = await supabase.storage
       .from("readhive")
       .getPublicUrl(`pdfs/${pdfpath}`);
@@ -105,17 +107,16 @@ export const SupabaseProvider = (props) => {
     return data;
   };
 
-  const getImageURL = async(path) => {
-    const {data} = await supabase.storage
-      .from("readhive")
-      .getPublicUrl(path);
-
-      return data.publicUrl;
+  const getBookById = async(id) => {
+    const {data, error} = await supabase.from("books")
+    .select("*")
+    .eq("id",id)
+    .single();
+    return data
   }
 
-
   return (
-    <SupabaseContext.Provider value={{ handleCreateNewListing, listAllBooks, getImageURL}}>
+    <SupabaseContext.Provider value={{ handleCreateNewListing, listAllBooks,getBookById}}>
       {props.children}
     </SupabaseContext.Provider>
   );

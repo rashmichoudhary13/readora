@@ -10,8 +10,8 @@ import "../style/Details.scss"
 
 const BookDetailPage = () => {
   const params = useParams();
-  console.log(params);
-  // const firebase = useFirebase();
+  console.log("Params: ", params);
+  const supabase = useSupabase();
 
   const [qty, setQty] = useState(1);
 
@@ -20,23 +20,25 @@ const BookDetailPage = () => {
   const [url, setURL] = useState(null);
   const [burl, setBURL] = useState(null);
 
-  // useEffect(() => {
-  //   firebase.getBookById(params.bookId).then((value) => setData(value.data()));
-  // }, []);
+  useEffect(() => {
+    supabase.getBookById(params.bookId).then((value) => setData(value));
+  }, []);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const imgURL = data.imgURL;
-  //     firebase.getImageURL(imgURL).then((url) => setURL(url));
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      setURL(data.imgURL);
+      console.log("imageurl: ", data.imgURL);
+    }
+  }, [data]);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const pdfURL = data.pdfURL;
-  //     firebase.getPdfURL(pdfURL).then((burl) => setBURL(burl));
-  //   }
-  // }, [data]);
+
+
+  useEffect(() => {
+    if (data) {
+      setBURL(data.pdfURL);
+      console.log("pdfurl: ", data.pdfURL);
+    }
+  }, [data]);
 
   if (data == null) return <h1>Loading....</h1>;
   return (

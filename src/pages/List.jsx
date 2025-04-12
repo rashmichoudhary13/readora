@@ -19,6 +19,7 @@ const ListingPage = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       await supabase.handleCreateNewListing(name, author, rdate, coverPic, desc, bookPdf, trope);
+      alert("successfully added the book")
     };
 
     return(
