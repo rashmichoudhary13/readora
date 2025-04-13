@@ -6,7 +6,7 @@ import RegisterPage from "./pages/Register";
 import ListingPage from "./pages/List";
 import HomePage from "./pages/Home";
 import BookDetailPage from "./pages/Details";
-import OrdersPage from "./pages/ViewOrders";
+import Profile from "./pages/Profile";
 import UserPage from "./pages/User";
 import LoginPage from "./pages/Login";
 //components
@@ -21,7 +21,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/book/list" element={<ListingPage />}></Route>
         <Route path="/book/view/:bookId" element={<BookDetailPage />}></Route>
-        <Route path="/book/orders" element={<OrdersPage />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
         <Route path="/user" element={<UserPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
