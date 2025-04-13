@@ -48,9 +48,14 @@ const MyNavbar = () => {
               </Link>
 
               {isLoggedIn && (
-                <Link to="/book/list" style={{ textDecoration: "none" }}>
-                  <Nav.Link as="span">Add Listing</Nav.Link>
-                </Link>
+                <>
+                  <Link to="/book/list" style={{ textDecoration: "none" }}>
+                    <Nav.Link as="span">Add Listing</Nav.Link>
+                  </Link>
+                  <Link to="/profile" style={{ textDecoration: "none" }}>
+                    <Nav.Link as="span">Profile</Nav.Link>
+                  </Link>
+                </>
               )}
             </Nav>
 
