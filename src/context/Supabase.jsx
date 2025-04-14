@@ -89,6 +89,7 @@ export const SupabaseProvider = ({ children }) => {
 
   const deleteBook = async (bookId) => {
     const { error } = await supabase.from("books").delete().eq("id", bookId);
+    alert("Successfully deleted the book");
     if (error) {
       console.error("Error deleting book:", error.message);
     } else {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+// import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 import {useSupabase} from "../context/Supabase";
 import Container from 'react-bootstrap/Container';
@@ -13,7 +13,7 @@ const BookDetailPage = () => {
   console.log("Params: ", params);
   const supabase = useSupabase();
 
-  const [qty, setQty] = useState(1);
+  // const [qty, setQty] = useState(1);
 
   const [data, setData] = useState(null);
   console.log(data);
@@ -30,8 +30,6 @@ const BookDetailPage = () => {
       console.log("imageurl: ", data.imgURL);
     }
   }, [data]);
-
-
 
   useEffect(() => {
     if (data) {
