@@ -38,7 +38,7 @@ const MyNavbar = () => {
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
           <Link to="/" style={{ textDecoration: "none" }}>
-            <Navbar.Brand>BookMate</Navbar.Brand>
+            <Navbar.Brand>Readora</Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
