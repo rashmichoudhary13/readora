@@ -60,8 +60,10 @@ export const SupabaseProvider = ({ children }) => {
     }]);
 
     if (error) {
-      console.error("Error inserting book: ", error);
+      alert(error.message)
+      console.error("Error inserting book: ", error.message);
     } else {
+      alert("Successfully inserted the book")
       console.log("Book successfully added.");
     }
   };
@@ -89,10 +91,11 @@ export const SupabaseProvider = ({ children }) => {
 
   const deleteBook = async (bookId) => {
     const { error } = await supabase.from("books").delete().eq("id", bookId);
-    alert("Successfully deleted the book");
     if (error) {
+      alert(error)
       console.error("Error deleting book:", error.message);
     } else {
+      alert("Deleted the book")
       console.log("Book deleted successfully");
     }
   };

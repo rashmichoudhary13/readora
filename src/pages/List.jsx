@@ -29,8 +29,7 @@ const ListingPage = () => {
       bookPdf,
       trope
     );
-    alert("successfully added the book");
-
+  
     // Reset form fields
     setName("");
     setAuthor("");
@@ -92,7 +91,7 @@ const ListingPage = () => {
           <Form.Control
             onChange={(e) => setRdate(e.target.value)}
             value={rdate}
-            type="text"
+            type="date"
             placeholder=""
           />
         </Form.Group>
