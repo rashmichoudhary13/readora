@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 //css
 import "bootstrap/dist/css/bootstrap.min.css";
+// import "./index.css"
 //pages
 import RegisterPage from "./pages/Register";
 import ListingPage from "./pages/List";
@@ -9,6 +10,7 @@ import BookDetailPage from "./pages/Details";
 import Profile from "./pages/Profile";
 import UserPage from "./pages/User";
 import LoginPage from "./pages/Login";
+import NewPage from "./pages/new";
 //components
 import MyNavbar from "./components/Navbar";
 
@@ -24,6 +26,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/user" element={<UserPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
+         <Route path="/new" element={<NewPage />}></Route>
       </Routes>
     </div>
   );
