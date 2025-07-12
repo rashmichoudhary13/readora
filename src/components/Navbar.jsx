@@ -30,7 +30,7 @@ const MyNavbar = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setIsLoggedIn(false);
-    navigate("/login");
+    navigate("/register");
   };
 
   return (
