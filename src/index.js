@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import {SupabaseProvider} from "./context/Supabase";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import './index.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
