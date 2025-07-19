@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.my-input:focus + .labelline,
+.my-input:valid + .labelline
+{
+    height: 30px;
+    line-height: 30px;
+    transform: translate(-10px,-18px) scale(0.88);
+    z-index: 1111;
+}
