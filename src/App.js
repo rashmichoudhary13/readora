@@ -11,11 +11,15 @@ import Profile from "./pages/Profile";
 import UserPage from "./pages/User";
 //components
 import MyNavbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import { Home } from "lucide-react";
 
 function App() {
   return (
     <div>
       <MyNavbar/>
+      {/* <HeroSection></HeroSection> */}
+      <Home className="hidden" ></Home>
       <Routes>
         <Route path="/" element={<HomePage/>}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
